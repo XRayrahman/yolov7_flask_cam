@@ -270,6 +270,7 @@ def index():
 
 
 if __name__ == "__main__":
+    port = 5000 + random.randint(0, 999)
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--weights", nargs="+", type=str, default="yolov7.pt", help="model.pt path(s)"
@@ -325,9 +326,9 @@ if __name__ == "__main__":
     with torch.no_grad():
         if opt.update:  # update all models (to fix SourceChangeWarning)
             for opt.weights in ["yolov7.pt"]:
-                app.run(host="0.0.0.0", debug=True)
+                app.run(host="0.0.0.0", debug=True, port=port)
                 # detect()
                 strip_optimizer(opt.weights)
         else:
-            app.run(host="0.0.0.0", debug=True)
+            app.run(host="0.0.0.0", debug=True, port=port)
             # detect()
